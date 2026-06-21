@@ -1,0 +1,102 @@
+#include <iostream>
+#include <utility>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+
+class ArraySolutions {
+public:
+    static std::pair<int, int> two_sum(const std::vector<int>& values, const int target) {
+        size_t i = 0; 
+        size_t j = values.size() - 1;
+        std::vector<std::pair<int, int>> indexed_values{j + 1};
+
+        std::transform(
+            values.begin(),
+            values.end(),
+            indexed_values.begin(),
+            [&i](int value) { return std::make_pair(value, i++); }
+        );
+
+        std::sort(
+            indexed_values.begin(), 
+            indexed_values.end(), 
+            [](auto& p1, auto& p2) { return p1.first < p2.first; }
+        );
+
+        i = 0;
+        while (i < j) {
+            const auto& v1 = indexed_values[i], v2 = indexed_values[j];
+            int sum = v1.first + v2.first;
+
+            if (sum == target) {
+                return std::make_pair(v1.second, v2.second);
+            } 
+            else if (sum > target) {
+                j--;
+            }
+            else {
+                i++;
+            }
+        }
+
+        return std::make_pair(-1, -1);
+    }
+
+    static std::pair<int, int> two_sum_hash(const std::vector<int>& values, const int target) {
+        std::unordered_map<int, size_t> cached_values{};
+
+        for(size_t i = 0; i < values.size(); i++) {
+            int val = values[i];
+            int remainder = target - val;
+            const auto& it = cached_values.find(remainder);
+
+            if (it != cached_values.end()) {
+                return std::make_pair(i, it->second);
+            } 
+            else {
+                cached_values[val] = i;
+            }
+        }
+
+        return std::make_pair(-1, -1);
+    }
+};
+
+
+class ArraySolvers {
+public:
+    static void two_sum_solver() {
+        std::vector<int> values = {6, 4, 3, 2, 1, 24, 12, 3, 9, 4, 16, 7, 3};
+        int target = 17;
+        auto ans = ArraySolutions::two_sum(values, target);
+
+        std::cout << "\nTwo Sum Solution:\n";
+        std::cout << "Array: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nTarget: " << target << std::endl;
+        std::cout << "Answer: (" << ans.first << ", " << ans.second << ")" << std::endl;
+    }
+
+    static void two_sum_hash_solver() {
+        std::vector<int> values = {6, 4, 3, 2, 1, 24, 12, 3, 9, 4, 16, 7, 3};
+        int target = 17;
+        auto ans = ArraySolutions::two_sum_hash(values, target);
+
+        std::cout << "\nTwo Sum Solution (With Hash Map):\n";
+        std::cout << "Array: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nTarget: " << target << std::endl;
+        std::cout << "Answer: (" << ans.first << ", " << ans.second << ")" << std::endl;
+    }
+};
+
+int main() {
+    ArraySolvers::two_sum_solver();
+    ArraySolvers::two_sum_hash_solver();
+    return 0;
+}
