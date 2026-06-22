@@ -61,8 +61,22 @@ public:
 
         return std::make_pair(-1, -1);
     }
-};
 
+    static unsigned int stocks_buy_and_sell(const std::vector<int>& prices) {
+        int maxProfit = 0;
+        int minValue = INT_MAX;
+
+        for (const int price : prices) {
+            if (minValue > price) {
+                minValue = price;
+            } else {    
+                maxProfit = std::max(maxProfit, price - minValue);
+            }
+        }
+
+        return maxProfit;
+    }
+};
 
 class ArraySolvers {
 public:
@@ -93,10 +107,23 @@ public:
         std::cout << "\nTarget: " << target << std::endl;
         std::cout << "Answer: (" << ans.first << ", " << ans.second << ")" << std::endl;
     }
+
+    static void stocks_solver() {
+        std::vector<int> values = {6, 4, 3, 2, 1, 24, 12, 3, 9, 4, 16, 7, 3};
+        auto ans = ArraySolutions::stocks_buy_and_sell(values);
+
+        std::cout << "\nStocks Buy And Sell:\n";
+        std::cout << "Stocks: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
+    }
 };
 
 int main() {
     ArraySolvers::two_sum_solver();
     ArraySolvers::two_sum_hash_solver();
+    ArraySolvers::stocks_solver();
     return 0;
 }
