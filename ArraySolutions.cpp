@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 class ArraySolutions {
 public:
@@ -76,6 +77,21 @@ public:
 
         return maxProfit;
     }
+
+    static bool contains_duplicate(const std::vector<int>& values) {
+        std::set<int> cache{};
+
+        for (const int value : values) {
+            if (cache.contains(value)) {
+                return true;
+            }
+            else {
+                cache.insert(value);
+            }
+        }
+
+        return false;
+    }
 };
 
 class ArraySolvers {
@@ -119,11 +135,27 @@ public:
         }
         std::cout << "\nAnswer: " << ans << std::endl;
     }
+
+    static void contains_duplicate_solver() {
+        std::vector<int> values = {6, 4, 3, 2, 1, 24, 12, 9, 16, 7};
+        std::cout << "\nContains Duplicate:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: ";
+        if (ArraySolutions::contains_duplicate(values)) {
+            std::cout << "True" << std::endl;
+        } else {
+            std::cout << "False" << std::endl;
+        }
+    }
 };
 
 int main() {
     ArraySolvers::two_sum_solver();
     ArraySolvers::two_sum_hash_solver();
     ArraySolvers::stocks_solver();
+    ArraySolvers::contains_duplicate_solver();
     return 0;
 }
