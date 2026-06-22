@@ -92,6 +92,32 @@ public:
 
         return false;
     }
+
+    static std::vector<int> product_of_array_except_self(const std::vector<int>& values) {
+        const int size = values.size();
+        std::vector<int> pre(size), post(size), out(size);
+
+        pre[0] = values[0];
+        for(int i = 1; i < size; i++) {
+            pre[i] = pre[i - 1] * values[i];
+        }
+
+        post[size - 1] = values[size - 1];
+        for(int i = size - 2; i >= 0; i--) {
+            post[i] = post[i + 1] * values[i];
+        }
+
+        int preval, postval;
+
+        for(int i = 0; i < values.size(); i++) {
+            preval = i == 0 ? 1 : pre[i - 1];
+            postval = i == (size - 1) ? 1 : post[i + 1];
+            
+            out[i] = preval * postval;
+        }
+
+        return out;
+    }
 };
 
 class ArraySolvers {
@@ -150,6 +176,21 @@ public:
             std::cout << "False" << std::endl;
         }
     }
+
+    static void product_of_array_solver() {
+        std::vector<int> values = {-1,1,0,-3,3};
+        auto ans = ArraySolutions::product_of_array_except_self(values);
+    
+        std::cout << "\nProduct of Array Except Self:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: ";
+        for (int a : ans) {
+            std::cout << a << " ";
+        }
+    }
 };
 
 int main() {
@@ -157,5 +198,6 @@ int main() {
     ArraySolvers::two_sum_hash_solver();
     ArraySolvers::stocks_solver();
     ArraySolvers::contains_duplicate_solver();
+    ArraySolvers::product_of_array_solver();
     return 0;
 }
