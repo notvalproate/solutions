@@ -118,6 +118,25 @@ public:
 
         return out;
     }
+
+    static int subarray_sum(const std::vector<int>& values) {
+        int maxSum = INT_MIN;
+        int sum = 0;
+
+        for (int i = 0; i < values.size(); i++) {
+            sum += values[i];
+
+            if (sum >= maxSum) {
+                maxSum = sum;
+            }
+
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return maxSum;
+    }
 };
 
 class ArraySolvers {
@@ -190,6 +209,25 @@ public:
         for (int a : ans) {
             std::cout << a << " ";
         }
+        std::cout << std::endl;
+    }
+
+    static void subarray_sum_solver() {
+        // std::vector<int> values = {1, -4, 10, -1, 10, -4, 1};
+        // std::vector<int> values = {-2, -1};
+        // std::vector<int> values = {-2, 1};
+        // std::vector<int> values = {-6, -10, -3, -3, -40, -2, -4, -40};
+        // std::vector<int> values = {-1, -1, 2};
+        // std::vector<int> values = {-1,-2,3,-1,-2,1,1};
+        std::vector<int> values = {99, -100, 100, -20, 100, -1000, 99};
+        auto ans = ArraySolutions::subarray_sum(values);
+    
+        std::cout << "\nMaximum Sum of Sub Array:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
     }
 };
 
@@ -199,5 +237,6 @@ int main() {
     ArraySolvers::stocks_solver();
     ArraySolvers::contains_duplicate_solver();
     ArraySolvers::product_of_array_solver();
+    ArraySolvers::subarray_sum_solver();
     return 0;
 }
