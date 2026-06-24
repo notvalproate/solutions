@@ -13,3 +13,5 @@ project(
 )
 
 add_executable(ArraySolutions ArraySolutions.cpp)
+add_executable(BinarySolutions BinarySolutions.cpp)
+add_executable(StringSolutions StringSolutions.cpp)
