@@ -139,11 +139,26 @@ public:
     }
     
     static int subarray_product(const std::vector<int>& values) {
-        int maxProduct = INT_MIN;
-        
-        // for()
+        int maxProduct = values[0];
+        int minProduct = values[0];
+        int answer = values[0];
 
-        return maxProduct;
+        for(size_t i = 1; i < values.size(); i++) {
+            int value = values[i];
+
+            if (value < 0) {
+                int temp = maxProduct;
+                maxProduct = minProduct;
+                minProduct = temp;
+            }
+            
+            maxProduct = std::max(value, maxProduct * value);
+            minProduct = std::min(value, minProduct * value);
+
+            answer = std::max(answer, maxProduct);
+        }
+
+        return answer;
     }
 };
 
@@ -239,7 +254,13 @@ public:
     }
 
     static void subarray_product_solver() {
-        std::vector<int> values = {1,2,-3,0,-4,-5};
+        std::vector<int> values = {1,2,-3,0,-4,-5,-1};
+        // std::vector<int> values = {0, 2};
+        // std::vector<int> values = {3, -1, 4};
+        // std::vector<int> values = {2,3,-2,4};
+        // std::vector<int> values = {-2,0,-1};
+        // std::vector<int> values = {-2,-3,7};
+        // std::vector<int> values = {-3,-1,-1};
         auto ans = ArraySolutions::subarray_product(values);
     
         std::cout << "\nMaximum Product of Sub Array:\n";
