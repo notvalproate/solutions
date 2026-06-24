@@ -94,11 +94,11 @@ public:
     }
 
     static std::vector<int> product_of_array_except_self(const std::vector<int>& values) {
-        const int size = values.size();
+        const size_t size = values.size();
         std::vector<int> pre(size), post(size), out(size);
 
         pre[0] = values[0];
-        for(int i = 1; i < size; i++) {
+        for(size_t i = 1; i < size; i++) {
             pre[i] = pre[i - 1] * values[i];
         }
 
@@ -109,7 +109,7 @@ public:
 
         int preval, postval;
 
-        for(int i = 0; i < values.size(); i++) {
+        for(size_t i = 0; i < values.size(); i++) {
             preval = i == 0 ? 1 : pre[i - 1];
             postval = i == (size - 1) ? 1 : post[i + 1];
             
@@ -123,7 +123,7 @@ public:
         int maxSum = INT_MIN;
         int sum = 0;
 
-        for (int i = 0; i < values.size(); i++) {
+        for (size_t i = 0; i < values.size(); i++) {
             sum += values[i];
 
             if (sum >= maxSum) {
@@ -136,6 +136,14 @@ public:
         }
 
         return maxSum;
+    }
+    
+    static int subarray_product(const std::vector<int>& values) {
+        int maxProduct = INT_MIN;
+        
+        // for()
+
+        return maxProduct;
     }
 };
 
@@ -229,6 +237,18 @@ public:
         }
         std::cout << "\nAnswer: " << ans << std::endl;
     }
+
+    static void subarray_product_solver() {
+        std::vector<int> values = {1,2,-3,0,-4,-5};
+        auto ans = ArraySolutions::subarray_product(values);
+    
+        std::cout << "\nMaximum Product of Sub Array:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
+    }
 };
 
 int main() {
@@ -238,5 +258,6 @@ int main() {
     ArraySolvers::contains_duplicate_solver();
     ArraySolvers::product_of_array_solver();
     ArraySolvers::subarray_sum_solver();
+    ArraySolvers::subarray_product_solver();
     return 0;
 }
