@@ -9,14 +9,15 @@ class StringSolutions {
 public:
     static int longest_repeating_replacement(const std::string& str, const int k) {
         std::vector<int> frequencies(26);
+        constexpr char UPPERCASE_A = 'A';
 
         auto incrementCharacterFrequency = [&frequencies](char letter) {
-            int index = ((int) letter) - 65;
+            int index = letter - UPPERCASE_A;
             frequencies[index]++;
         };
 
         auto decrementCharacterFrequency = [&frequencies](char letter) {
-            int index = ((int) letter) - 65;
+            int index = letter - UPPERCASE_A;
             frequencies[index]--;
         };
 
@@ -28,7 +29,7 @@ public:
             char endChar = str[windowEnd];
             incrementCharacterFrequency(endChar);
 
-            mostFrequent = std::max(mostFrequent, frequencies[endChar - 65]);
+            mostFrequent = std::max(mostFrequent, frequencies[endChar - UPPERCASE_A]);
             int windowLength = windowEnd - windowStart + 1;
 
             if (mostFrequent + k < windowLength) {
