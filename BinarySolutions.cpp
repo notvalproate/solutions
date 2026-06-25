@@ -7,8 +7,17 @@
 
 class BinarySolutions {
 public:
+    static int set_bit_count(int a) {
+        int count = 0;
+        while (a != 0) {
+            count += a & 0b1;
+            a = a >> 1;
+        }
+        return count;
+    }
+
     static int sum_of_two(int a, int b) {
-        while(b != 0) {
+        while (b != 0) {
             int c = a & b;
             a = a ^ b;
             b = c << 1;
@@ -34,6 +43,15 @@ public:
 
 class BinarySolvers {
 public:
+    static void set_bit_count_solver() {
+        int a = 11;
+        auto ans = BinarySolutions::set_bit_count(a);
+
+        std::cout << "\nSet Bit Count:\n";
+        std::cout << "A: " << a << std::endl;
+        std::cout << "Answer: " << ans << std::endl;
+    }
+
     static void sum_of_two_solver() {
         int a = 5, b = 11;
         auto ans = BinarySolutions::sum_of_two(a, b);
@@ -59,5 +77,6 @@ public:
 int main() {
     BinarySolvers::missing_number_solver();
     BinarySolvers::sum_of_two_solver();
+    BinarySolvers::set_bit_count_solver();
     return 0;
 }
