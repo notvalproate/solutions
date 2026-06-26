@@ -160,6 +160,14 @@ public:
 
         return answer;
     }
+
+    static int min_in_rotated(const std::vector<int>& values) {
+        int minValue = INT_MAX;
+
+        
+
+        return minValue;
+    }
 };
 
 class ArraySolvers {
