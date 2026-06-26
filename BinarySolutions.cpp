@@ -57,10 +57,9 @@ public:
 
     static int reverse_bits(int a) {
         int result = 0;
-        for (int i = 0; i < 32; i++) {
-            int bit = a & 0b1;
+        for (int i = 0; i < sizeof(int) * 8; i++) {
+            result = a & 0b1 | (result << 1);
             a = a >> 1;
-            result = (result << 1) | bit;
         }
         return result;
     }
