@@ -192,7 +192,7 @@ public:
     static int search_in_rotated(const std::vector<int>& values, int target) {
         int start = 0, end = values.size() - 1;
 
-        while (start < end) {
+        while (start <= end) {
             int middle = (start + end) / 2;
             int middleValue = values[middle];
 
