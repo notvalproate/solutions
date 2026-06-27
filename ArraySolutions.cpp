@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <set>
+#include <print>
 
 class ArraySolutions {
 public:
@@ -162,11 +163,30 @@ public:
     }
 
     static int min_in_rotated(const std::vector<int>& values) {
-        int minValue = INT_MAX;
+        int start = 0, end = values.size() - 1;
 
-        
+        if (values[start] < values[end]) {
+            return values[start];
+        }
 
-        return minValue;
+        while (start < end) {
+            int middle = start + ((end - start) / 2);
+            int middleValue = values[middle];
+
+            if (middleValue == values[start]) {
+                start = values[start] < values[end] ? start : end;
+                break;
+            }
+            
+            if (middleValue < values[start]) {
+                end = middle;
+            } 
+            else if (middleValue >= values[start]) {
+                start = middle + 1;
+            }
+        }
+
+        return values[start];
     }
 };
 
@@ -278,6 +298,18 @@ public:
         }
         std::cout << "\nAnswer: " << ans << std::endl;
     }
+
+    static void min_in_rotated_solver() {
+        std::vector<int> values = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+        auto ans = ArraySolutions::min_in_rotated(values);
+    
+        std::cout << "\nMin in Rotated Array Solution:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
+    }
 };
 
 int main() {
@@ -288,5 +320,6 @@ int main() {
     ArraySolvers::product_of_array_solver();
     ArraySolvers::subarray_sum_solver();
     ArraySolvers::subarray_product_solver();
+    ArraySolvers::min_in_rotated_solver();
     return 0;
 }

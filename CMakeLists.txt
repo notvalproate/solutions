@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
@@ -13,5 +13,10 @@ project(
 )
 
 add_executable(ArraySolutions ArraySolutions.cpp)
+target_link_libraries(ArraySolutions PRIVATE stdc++exp)
+
 add_executable(BinarySolutions BinarySolutions.cpp)
+target_link_libraries(BinarySolutions PRIVATE stdc++exp)
+
 add_executable(StringSolutions StringSolutions.cpp)
+target_link_libraries(StringSolutions PRIVATE stdc++exp)
