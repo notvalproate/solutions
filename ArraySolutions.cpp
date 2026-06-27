@@ -188,6 +188,38 @@ public:
 
         return values[start];
     }
+
+    static int search_in_rotated(const std::vector<int>& values, int target) {
+        int start = 0, end = values.size() - 1;
+
+        while (start < end) {
+            int middle = (start + end) / 2;
+            int middleValue = values[middle];
+
+            if (middleValue == target) {
+                return middle;
+            }
+
+            if (middleValue <= values[end]) {
+                if (middleValue < target && target <= values[end]) {
+                    start = middle + 1;
+                }
+                else {
+                    end = middle - 1;
+                }
+            } 
+            else {
+                if (values[start] <= target && target < middleValue) {
+                    end = middle - 1;
+                }
+                else {
+                    start = middle + 1;
+                }
+            }
+        }
+
+        return -1;
+    }
 };
 
 class ArraySolvers {
@@ -310,6 +342,19 @@ public:
         }
         std::cout << "\nAnswer: " << ans << std::endl;
     }
+
+    static void search_in_rotated_solver() {
+        std::vector<int> values = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+        int target = 7;
+        auto ans = ArraySolutions::search_in_rotated(values, target);
+    
+        std::cout << "\nSearch in Rotated Array Solution:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
+    }
 };
 
 int main() {
@@ -321,5 +366,6 @@ int main() {
     ArraySolvers::subarray_sum_solver();
     ArraySolvers::subarray_product_solver();
     ArraySolvers::min_in_rotated_solver();
+    ArraySolvers::search_in_rotated_solver();
     return 0;
 }
