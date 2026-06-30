@@ -220,6 +220,43 @@ public:
 
         return -1;
     }
+
+    static std::vector<std::vector<int>> three_sum(std::vector<int>& values) {
+        std::vector<std::vector<int>> results{};
+
+        std::sort(values.begin(), values.end());
+
+        for (int i = 0; i < values.size() - 2; i++) {
+            if (i > 0 && values[i] == values[i - 1]) {
+                continue;
+            };
+
+            int j = i + 1, k = values.size() - 1;
+
+            while (j < k) {
+                int jValue = values[j];
+                int kValue = values[k];
+                int sum = values[i] + jValue + kValue;
+
+                if (sum == 0) {
+                    results.push_back({values[i], jValue, kValue});
+                    j++;
+                    k--;
+
+                    while (j < k && values[j] == values[j - 1]) j++;
+                    while (j < k && values[k] == values[k + 1]) k--;
+                } 
+                else if (sum > 0) {
+                    k--;
+                }   
+                else {
+                    j++;
+                }
+            }
+        }
+
+        return results;
+    }
 };
 
 class ArraySolvers {
@@ -355,6 +392,26 @@ public:
         }
         std::cout << "\nAnswer: " << ans << std::endl;
     }
+
+    static void three_sum_solver() {
+        std::vector<int> values = {-1,0,1,2,-1,-4};
+        auto ans = ArraySolutions::three_sum(values);
+    
+        std::cout << "\nThree Sum Solution:\n";
+        std::cout << "Values: ";
+        for (int v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: ";
+
+        for (const auto& v : ans) {
+            std::cout << "[";
+            for (const auto& a : v) {
+                std::cout << a << " "; 
+            }
+            std::cout << "\b] ";
+        }
+    }
 };
 
 int main() {
@@ -367,5 +424,6 @@ int main() {
     ArraySolvers::subarray_product_solver();
     ArraySolvers::min_in_rotated_solver();
     ArraySolvers::search_in_rotated_solver();
+    ArraySolvers::three_sum_solver();
     return 0;
 }
