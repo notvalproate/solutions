@@ -20,3 +20,6 @@ target_link_libraries(BinarySolutions PRIVATE stdc++exp)
 
 add_executable(StringSolutions StringSolutions.cpp)
 target_link_libraries(StringSolutions PRIVATE stdc++exp)
+
+add_executable(DPSolutions DPSolutions.cpp)
+target_link_libraries(DPSolutions PRIVATE stdc++exp)
