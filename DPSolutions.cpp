@@ -14,6 +14,24 @@ public:
 
         return cache[n];
     }
+
+    static void n_bit_more_ones(int n) {
+        auto n_bits = [&](this auto self, int countOfOnes, int countOfZeroes, std::string number) -> void {
+            if (countOfZeroes >= countOfOnes) {
+                return;
+            }
+
+            if (countOfZeroes + countOfOnes == n) {
+                std::cout << number << std::endl;
+                return;
+            }
+
+            self(countOfOnes, countOfZeroes + 1, number + "0");
+            self(countOfOnes + 1, countOfZeroes, number + "1");
+        };
+
+        n_bits(1, 0, "1");
+    }
 };  
 
 class DPSolvers {
@@ -26,9 +44,38 @@ public:
         std::cout << "N: " << n << std::endl;
         std::cout << "Answer: " << ans << std::endl;
     }
+
+    static void n_bit_more_ones_solver() {
+        int n = 5;
+
+        std::cout << "\nN-Bit Numbers With More 1s All Prefixes Solution:" << std::endl;
+        std::cout << "N: " << n << "\nAnswers:" << std::endl;
+        DPSolutions::n_bit_more_ones(n);
+    }
 };
+
+/*
+N bit number
+01001010-> TILL N BITS
+
+EVERY PREFIX OF THE NUMBER HAS count of 1s > 0s
+
+00000
+
+countOfOnes + countOfZeros = n 
+    return 1;
+count of 0s >= count of 1s
+- set to 1
+    -> countOfOnes++
+    - next bit
+- next bit
+    -> countOfZeros++
+    set it to 1
+
+*/
 
 int main() {
     DPSolvers::climbing_stairs_solver();
+    DPSolvers::n_bit_more_ones_solver();
     return 0;
 }
