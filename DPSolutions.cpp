@@ -16,18 +16,20 @@ public:
     }
 
     static void n_bit_more_ones(int n) {
-        auto n_bits = [&](this auto self, int countOfOnes, int countOfZeroes, std::string number) -> void {
-            if (countOfZeroes >= countOfOnes) {
-                return;
-            }
+        if (n == 0) {
+            return;
+        }
 
+        auto n_bits = [&](this auto self, int countOfOnes, int countOfZeroes, std::string number) -> void {
             if (countOfZeroes + countOfOnes == n) {
                 std::cout << number << std::endl;
                 return;
             }
 
-            self(countOfOnes, countOfZeroes + 1, number + "0");
             self(countOfOnes + 1, countOfZeroes, number + "1");
+
+            if (countOfZeroes != countOfOnes - 1) 
+                self(countOfOnes, countOfZeroes + 1, number + "0");
         };
 
         n_bits(1, 0, "1");
