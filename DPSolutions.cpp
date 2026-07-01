@@ -34,6 +34,19 @@ public:
 
         n_bits(1, 0, "1");
     }
+
+    static int rob_house(std::vector<int> values) {
+        int prev1 = 0;
+        int prev2 = 0;
+
+        for (int i = 0; i < values.size(); i++) {
+            int temp = prev1;
+            prev1 = std::max(prev2 + values[i], prev1);
+            prev2 = temp;
+        }
+
+        return prev1;
+    }
 };  
 
 class DPSolvers {
@@ -54,10 +67,24 @@ public:
         std::cout << "N: " << n << "\nAnswers:" << std::endl;
         DPSolutions::n_bit_more_ones(n);
     }
+
+    static void rob_house_solver() {
+        std::vector<int> values = {1, 2, 3, 1};
+        auto ans = DPSolutions::rob_house(values);
+
+        std::cout << "\nHouse Robber Solution:" << std::endl;
+        std::cout << "Values: " << std::endl;
+        for (const auto v : values) {
+            std::cout << v << " ";
+        }
+        std::cout << "\nAnswer: " << ans << std::endl;
+    }
 };
 
 int main() {
     DPSolvers::climbing_stairs_solver();
     DPSolvers::n_bit_more_ones_solver();
+    DPSolvers::rob_house_solver();
+
     return 0;
 }
