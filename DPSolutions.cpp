@@ -56,26 +56,6 @@ public:
     }
 };
 
-/*
-N bit number
-01001010-> TILL N BITS
-
-EVERY PREFIX OF THE NUMBER HAS count of 1s > 0s
-
-00000
-
-countOfOnes + countOfZeros = n 
-    return 1;
-count of 0s >= count of 1s
-- set to 1
-    -> countOfOnes++
-    - next bit
-- next bit
-    -> countOfZeros++
-    set it to 1
-
-*/
-
 int main() {
     DPSolvers::climbing_stairs_solver();
     DPSolvers::n_bit_more_ones_solver();
